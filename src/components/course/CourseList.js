@@ -19,7 +19,7 @@ const CourseList = ({courses, deleteCourse}) => {
       )}
       </tbody>
     </table>
-  )
+  );
 };
 
 CourseList.propTypes = {
