@@ -5,7 +5,7 @@ class AboutPage extends React.Component {
     return (
       <div className="jumbotron">
         <h1>About</h1>
-        <p>This application uses React, React Router, and Flux and a variety of other helpful libaries.</p>
+        <p>This application uses React, Redux, React Router and a variety of other helpful libraries.</p>
       </div>
     );
   }

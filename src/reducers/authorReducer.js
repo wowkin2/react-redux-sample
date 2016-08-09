@@ -1,8 +1,8 @@
-import * as types from '../actions/actionsTypes';
-import initial_state from './initialState';
+import * as types from '../actions/actionTypes';
+import initialState from './initialState';
 
-export default function authorReducer(state = initial_state.authors, action) {
-  switch(action.type) {
+export default function authorReducer(state = initialState.authors, action) {
+  switch (action.type) {
     case types.LOAD_AUTHORS_SUCCESS:
       return action.authors;
 

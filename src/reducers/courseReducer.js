@@ -1,8 +1,8 @@
-import * as types from '../actions/actionsTypes';
-import initial_state from './initialState';
+import * as types from '../actions/actionTypes';
+import initialState from './initialState';
 
-export default function courseReducer(state = initial_state.courses, action) {
-  switch(action.type) {
+export default function courseReducer(state = initialState.courses, action) {
+  switch (action.type) {
     case types.LOAD_COURSES_SUCCESS:
       return action.courses;
 
