@@ -20,6 +20,7 @@
   "author": "wowkin2",
   "license": "MIT",
   "dependencies": {
+    "babel": "6.5.2",
     "babel-polyfill": "6.8.0",
     "bootstrap": "3.3.6",
     "jquery": "2.2.3",

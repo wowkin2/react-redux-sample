@@ -1,4 +1,4 @@
-var express= require('express');
+var express = require('express');
 var compression = require('compression');
 var path = require('path');
 var open = require('open');
