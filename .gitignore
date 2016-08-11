@@ -3,3 +3,6 @@ node_modules
 npm-debug.log.*
 *-compiled.js
 *-compiled.js.map
+npm-debug.log
+npm-debug.log*
+dist/
