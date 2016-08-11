@@ -1,7 +1,7 @@
-var express = require('express');
-var compression = require('compression');
-var path = require('path');
-var open = require('open');
+import express from 'express';
+import path from 'path';
+import open from 'open';
+import compression from 'compression';
 
 /*eslint-disable no-console */
 
