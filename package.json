@@ -14,8 +14,8 @@
     "remove-dist": "node_modules/.bin/rimraf ./dist",
     "build:html": "babel-node tools/buildHtml.js",
     "prebuild": "npm-run-all clean-dist test lint build:html",
-    "build": "babel-node tools/build.js",
-    "postbuild": "babel-node tools/distServer.js"
+    "build": "babel-node --presets es2015 tools/build.js",
+    "postbuild": "babel-node --presets es2015 tools/distServer.js"
   },
   "author": "wowkin2",
   "license": "MIT",
