@@ -1,6 +1,8 @@
-import AuthorApi from '../api/AuthorApi.mock';
 import * as types from './actionTypes';
 import {beginAjaxCall} from './ajaxStatusActions';
+
+import AuthorApi from '../api/AuthorApi';
+// import AuthorApi from '../api/AuthorApi.mock';
 
 export function loadAuthorsSuccess(authors) {
   return {type: types.LOAD_AUTHORS_SUCCESS, authors};
