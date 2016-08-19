@@ -1,4 +1,4 @@
-import AuthorApi from '../api/mockAuthorApi';
+import AuthorApi from '../api/AuthorApi.mock';
 import * as types from './actionTypes';
 import {beginAjaxCall} from './ajaxStatusActions';
 
