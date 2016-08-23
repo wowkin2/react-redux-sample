@@ -19,11 +19,11 @@ class CourseApi {
       fetch('/api/courses')
         .then(parseJSON)
         .then(function (json) {
-          Object.assign(courses, json);
-          resolve(Object.assign([], courses))
+          Object.assign(courses, json.courses);
+          resolve(Object.assign([], courses));
         })
         .catch(function(ex) {
-          reject('Error during request.', ex)
+          reject('Error during request.', ex);
         });
     });
   }
@@ -48,14 +48,14 @@ class CourseApi {
           course.id = generateId(course);
           course.watchHref = `http://www.pluralsight.com/courses/${course.id}`;
         }
-        restPost('/api/courses')
+        restPost('/api/course', course)
           .then(parseJSON)
           .then(function (json) {
-            Object.assign(courses, json);
-            resolve(Object.assign([], courses))
+            Object.assign(courses, json.course);
+            resolve(Object.assign([], courses));
           })
           .catch(function(ex) {
-            reject('Error during request.', ex)
+            reject('Error during request.', ex);
           });
 
         resolve(course);

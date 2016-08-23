@@ -1,5 +1,6 @@
 import delay from './delay';
-import {checkStatus, parseJSON} from './helpers';
+import 'whatwg-fetch';
+import {checkStatus, parseJSON, restPost} from './helpers';
 
 const authors = [];
 
@@ -14,11 +15,11 @@ class AuthorApi {
       fetch('/api/authors')
         .then(parseJSON)
         .then(function (json) {
-          Object.assign(authors, json);
-          resolve(Object.assign([], authors))
+          Object.assign(authors, json.authors);
+          resolve(Object.assign([], authors));
         })
         .catch(function(ex) {
-          reject('Error during request.', ex)
+          reject('Error during request.', ex);
         });
     });
   }
@@ -47,6 +48,15 @@ class AuthorApi {
           author.id = generateId(author);
           authors.push(author);
         }
+        restPost('/api/author', author)
+          .then(parseJSON)
+          .then(function (json) {
+            Object.assign(authors, json.author);
+            resolve(Object.assign([], authors));
+          })
+          .catch(function(ex) {
+            reject('Error during request.', ex);
+          });
 
         resolve(author);
       }, delay);

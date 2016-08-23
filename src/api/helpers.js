@@ -1,20 +1,24 @@
 export function checkStatus(response) {
   if (response.status >= 200 && response.status < 300) {
-    return response
+    return response;
   } else {
-    var error = new Error(response.statusText);
+    let error = new Error(response.statusText);
     error.response = response;
-    throw error
+    throw error;
   }
 }
 
 export function parseJSON(response) {
-  return response.json()
+  return response.json();
 }
 
 export function restPost(url, data) {
   return fetch(url, {
     method: 'POST',
-    body: new FormData(data)
-  })
+    headers: {
+      'Accept': 'application/json',
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(data)
+  });
 }

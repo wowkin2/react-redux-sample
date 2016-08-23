@@ -24,11 +24,13 @@ class CoursesPage extends React.Component {
 
     return (
       <div>
-        <h1>Courses</h1>
-        <input type="submit"
-               value="Add Course"
-               className="btn btn-primary"
-               onClick={this.redirectToAddCoursePage}/>
+        <h1>Courses&nbsp;
+          <button onClick={this.redirectToAddCoursePage}
+                  className="btn btn-default"
+                  style={{fontSize: '10px'}}>
+            <span className="glyphicon glyphicon-plus" aria-hidden="true"></span>
+          </button>
+        </h1>
         <CourseList courses={courses}/>
       </div>
     );
