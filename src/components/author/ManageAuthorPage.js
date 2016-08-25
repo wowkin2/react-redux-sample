@@ -47,7 +47,6 @@ export class ManageAuthorPage extends React.Component {
 
     saveAuthor(event) {
       event.preventDefault();
-      debugger;
       if (!this.authorFormIsValid()) {
         return;
       }
@@ -56,7 +55,6 @@ export class ManageAuthorPage extends React.Component {
       this.props.actions.saveAuthor(this.state.author)
         .then(() => this.redirect())
         .catch(error => {
-          debugger;
           toastr.error(error);
           this.setState({saving: false});
         });
@@ -91,8 +89,7 @@ ManageAuthorPage.contextTypes = {
   router: PropTypes.object
 };
 
-function getAuthorById(authors, id) {
-  debugger;
+export function getAuthorById(authors, id) {
   const author = authors.filter(author => author.id == id);
   if (author) return author[0];  // since filter returns an array, have to grab the first.
   return null;
