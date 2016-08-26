@@ -23,7 +23,9 @@ export function updateCourseSuccess(course) {
   return {type: types.UPDATE_COURSE_SUCCESS, course};
 }
 
-// TODO: add 'remove' method
+export function deleteCourseSuccess(courses) {
+  return {type: types.DELETE_COURSE_SUCCESS, courses};
+}
 
 export function loadCourses() {
   return function(dispatch) {
@@ -44,6 +46,17 @@ export function saveCourse(course) {
         dispatch(createCourseSuccess(course));
     }).catch(error => {
       dispatch(ajaxCallError(error));
+      throw(error);
+    });
+  };
+}
+
+export function deleteCourse(course) {
+  return dispatch => {
+    dispatch(beginAjaxCall());
+    return Api.deleteCourse(course.id).then(courses => {
+      dispatch(deleteCourseSuccess(courses));
+    }).catch(error => {
       throw(error);
     });
   };

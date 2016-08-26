@@ -4,11 +4,20 @@ import {bindActionCreators} from 'redux';
 import * as authorActions from '../../actions/authorActions';
 import AuthorList from './AuthorList';
 import {browserHistory} from 'react-router';
+import toastr from 'toastr';
 
 class AuthorsPage extends React.Component {
   constructor(props, context) {
     super(props, context);
+
+    this.state = {
+      authors: Object.assign({}, props.authors),
+      errors: {},
+      deleting: false
+    };
+
     this.redirectToAddAuthorPage = this.redirectToAddAuthorPage.bind(this);
+    this.deleteAPIAuthor = this.deleteAPIAuthor.bind(this);
   }
 
   authorRow(author, index) {
@@ -19,8 +28,28 @@ class AuthorsPage extends React.Component {
     browserHistory.push('/author');
   }
 
+  deleteAPIAuthor(author) {
+    // event.preventDefault();
+    if (!confirm("Are you sure, that you want to remove this author?")) {
+      return false;
+    }
+
+    this.setState({deleting: true});
+    this.props.actions.deleteAuthor(author)
+      .then(() => this.redirect('Author removed'))
+      .catch(error => {
+        toastr.error(error);
+        this.setState({deleting: false});
+      });
+  }
+
+  redirect(message) {
+    this.setState({saving: false});
+    toastr.success(message);
+    this.context.router.push('/authors');
+  }
+
   render() {
-    const {authors} = this.props;
 
     return (
       <div>
@@ -31,7 +60,12 @@ class AuthorsPage extends React.Component {
             <span className="glyphicon glyphicon-plus" aria-hidden="true"></span>
           </button>
         </h1>
-        <AuthorList authors={authors}/>
+        <AuthorList
+          authors={this.props.authors}
+          errors={this.state.errors}
+          deleting={this.state.deleting}
+          deleteAuthor={this.deleteAPIAuthor}
+        />
       </div>
     );
   }
@@ -40,6 +74,11 @@ class AuthorsPage extends React.Component {
 AuthorsPage.propTypes = {
   authors: PropTypes.array.isRequired,
   actions: PropTypes.object.isRequired
+};
+
+//Pull in the React Router context so router is available on this.context.router.
+AuthorsPage.contextTypes = {
+  router: PropTypes.object
 };
 
 function mapStateToProps(state, ownProps) {

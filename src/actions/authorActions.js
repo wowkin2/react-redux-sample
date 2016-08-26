@@ -23,7 +23,9 @@ export function updateAuthorSuccess(author) {
   return {type: types.UPDATE_AUTHOR_SUCCESS, author};
 }
 
-// TODO: add 'remove' method
+export function deleteAuthorSuccess(authors) {
+  return {type: types.DELETE_AUTHOR_SUCCESS, authors};
+}
 
 export function loadAuthors() {
   return dispatch => {
@@ -44,6 +46,17 @@ export function saveAuthor(author) {
         dispatch(createAuthorSuccess(author));
     }).catch(error => {
       dispatch(ajaxCallError(error));
+      throw(error);
+    });
+  };
+}
+
+export function deleteAuthor(author) {
+  return dispatch => {
+    dispatch(beginAjaxCall());
+    return Api.deleteAuthor(author.id).then(authors => {
+      dispatch(deleteAuthorSuccess(authors));
+    }).catch(error => {
       throw(error);
     });
   };

@@ -1,6 +1,6 @@
 import delay from './delay';
 import 'whatwg-fetch';
-import {checkStatus, parseJSON, restPost} from './helpers';
+import {checkStatus, parseJSON, restGet, restPost, restDelete, restPut} from './helpers';
 
 const courses = [];
 
@@ -16,7 +16,7 @@ const generateId = (course) => {
 class CourseApi {
   static getAllCourses() {
     return new Promise((resolve, reject) => {
-      fetch('/api/courses')
+      restGet('/api/courses')
         .then(parseJSON)
         .then(function (json) {
           Object.assign(courses, json.courses);
@@ -65,13 +65,19 @@ class CourseApi {
 
   static deleteCourse(courseId) {
     return new Promise((resolve, reject) => {
-      setTimeout(() => {
-        const indexOfCourseToDelete = courses.findIndex(course => {
-          course.courseId == courseId;
+      const indexCourse = courses.findIndex(course => course.id == courseId);
+      if (indexCourse > -1) {
+        courses.splice(indexCourse, 1);
+      }
+
+      restDelete('/api/course/' + courseId)
+        .then(parseJSON)
+        .then(function (json) {})
+        .catch(function(ex) {
+          reject('Error during request.', ex);
         });
-        courses.splice(indexOfCourseToDelete, 1);
-        resolve();
-      }, delay);
+
+      resolve(Object.assign([], courses));
     });
   }
 }

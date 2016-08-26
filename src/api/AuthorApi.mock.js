@@ -68,11 +68,11 @@ class AuthorApi {
   static deleteAuthor(authorId) {
     return new Promise((resolve, reject) => {
       setTimeout(() => {
-        const indexOfAuthorToDelete = authors.findIndex(author => {
-          author.authorId == authorId;
-        });
-        authors.splice(indexOfAuthorToDelete, 1);
-        resolve();
+        const indexAuthor = authors.findIndex(author => author.id == authorId);
+        if (indexAuthor > -1) {
+          authors.splice(indexAuthor, 1);
+        }
+        resolve(Object.assign([], authors));
       }, delay);
     });
   }

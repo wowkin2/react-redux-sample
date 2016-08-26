@@ -18,6 +18,9 @@ export default function courseReducer(state = initialState.courses, action) {
         Object.assign({}, action.course)
       ];
 
+    case types.DELETE_COURSE_SUCCESS:
+      return action.courses;
+
     default:
       return state;
   }
