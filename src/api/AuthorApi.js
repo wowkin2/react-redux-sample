@@ -12,6 +12,7 @@ class AuthorApi {
   static getAllAuthors() {
     return new Promise((resolve, reject) => {
       restGet('/api/authors')
+        .then(checkStatus)
         .then(parseJSON)
         .then(function (json) {
           Object.assign(authors, json.authors);
@@ -36,27 +37,33 @@ class AuthorApi {
         reject(`Last Name must be at least ${minAuthorNameLength} characters.`);
       }
 
+      let requestPromise;
+      let suffix = '';
+
       if (author.id) {
         const existingAuthorIndex = authors.findIndex(a => a.id == author.id);
         authors.splice(existingAuthorIndex, 1, author);
+        requestPromise = restPut;
+        suffix = '/' + author.id;
       } else {
         //Just simulating creation here.
         //The server would generate ids for new authors in a real app.
         //Cloning so copy returned is passed by value rather than by reference.
         author.id = generateId(author);
+
         authors.push(author);
+
+        requestPromise = restPost;
       }
-      restPost('/api/author', author)
-        .then(parseJSON)
+      requestPromise('/api/author' + suffix, author)
+        .then(checkStatus)
         .then(function (json) {
-          Object.assign(authors, json.author);
-          resolve(Object.assign([], authors));
+          // Object.assign(authors, json.author);
+          resolve(author);
         })
         .catch(function(ex) {
           reject('Error during request.', ex);
         });
-
-      resolve(author);
     });
   }
 
@@ -68,13 +75,14 @@ class AuthorApi {
       }
 
       restDelete('/api/author/' + authorId)
-        .then(parseJSON)
-        .then(function (json) {})
+        .then(checkStatus)
+        .then(function (json) {
+          // just to refresh data
+          resolve(Object.assign([], authors));
+        })
         .catch(function(ex) {
           reject('Error during request.', ex);
         });
-
-      resolve(Object.assign([], authors));
     });
   }
 }
