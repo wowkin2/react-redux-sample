@@ -35,12 +35,15 @@ export class ManageCoursePage extends React.Component {
     }
 
     courseFormIsValid() {
-      let formIsValid = true;
+      let formIsValid = false;
       let errors = {};
 
       if (this.state.course.title.length < 5) {
         errors.title = 'Title must be at least 5 characters.';
-        formIsValid = false;
+      } else if (/^\d+:\d{2}$/g.test(this.state.course.length)) {
+        errors.title = 'Course length has inappropriate format.';
+      } else {
+        formIsValid = true;
       }
       this.setState({errors: errors});
       return formIsValid;

@@ -7,9 +7,9 @@
 - [ ] Client-side validation
   - [ ] category validation
   - [ ] URL validation
-  - [ ] time duration
-- [ ] Handle 404's 
-  - [ ] add some logic to mapStateToProps
+  - [X] time duration
+- [X] Handle 404's 
+  - [?] add some logic to mapStateToProps
 - [X] Show # course in Header 
 - [ ] Pagination (or infinite scrolling)
 - [ ] Sort course table (by any field, title - by default)
@@ -17,3 +17,4 @@
 - [ ] Revert abandoned changes
   - [ ] keep old values
 - [ ] User-friendly error messages (to show what happens instead of just error)
+- [ ] move ID generation to server-side

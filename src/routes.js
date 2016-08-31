@@ -2,6 +2,7 @@ import React from 'react';
 import { Route, IndexRoute } from 'react-router';
 import App from './components/App';
 
+import NotFound from './components/error/NotFound';
 import HomePage from './components/home/HomePage';
 import AboutPage from './components/about/AboutPage';
 
@@ -24,5 +25,8 @@ export default (
     <Route path="author/:id" component={ManageAuthorPage} />
 
     <Route path="about" component={AboutPage} />
+
+    { /* Catch all route */ }
+    <Route path="*" component={NotFound} status={404} />
   </Route>
 );
